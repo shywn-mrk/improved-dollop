@@ -6,8 +6,6 @@ import (
 	"github.com/spf13/viper"
 )
 
-// Provider defines a set of read-only methods for accessing the application
-// configuration params as defined in one of the config files.
 type Provider interface {
 	ConfigFileUsed() string
 	Get(key string) interface{}
@@ -29,12 +27,10 @@ type Provider interface {
 
 var defaultConfig *viper.Viper
 
-// Config returns a default config providers
 func Config() Provider {
 	return defaultConfig
 }
 
-// LoadConfigProvider returns a configured viper instance
 func LoadConfigProvider(appName string) Provider {
 	return readViperConfig(appName)
 }
@@ -46,10 +42,7 @@ func init() {
 func readViperConfig(appName string) *viper.Viper {
 	v := viper.New()
 	v.SetEnvPrefix(appName)
-	v.AutomaticEnv()
-
-	// global defaults
-	
+	v.AutomaticEnv()	
 
 	return v
 }
